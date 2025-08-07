@@ -1,6 +1,8 @@
 import "./NotesList.css";
 import Note from "../Note/Note";
 import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal, Button } from "@mantine/core";
 
 export function NotesList({ listOfNotes, onDeleteNote }) {
   //   console.log("list" + listOfNotes);
