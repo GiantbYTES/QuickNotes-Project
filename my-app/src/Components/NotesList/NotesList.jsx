@@ -13,6 +13,7 @@ export function NotesList({ listOfNotes, onDeleteNote }) {
         return (
           <Note
             key={id}
+            title={n.title}
             text={n.text}
             date={n.date}
             onDelete={onDeleteNote}

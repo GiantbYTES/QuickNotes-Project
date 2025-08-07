@@ -4,20 +4,26 @@ import { useState } from "react";
 import moment from "moment";
 
 export function NoteCreator() {
-  const [note, setNote] = useState({ text: "" });
-  function handleChange(event) {
+  const [note, setNote] = useState({ title: "", text: "" });
+  function handleChangeText(event) {
     const date = moment().format("MMM Do h:mm A");
     setNote({ ...note, text: event.target.value, date: date });
+  }
+  function handleChangeTitle(event) {
+    setNote({ ...note, title: event.target.value });
   }
   const [list, setList] = useState([note]);
 
   function addNote() {
-    if (list[0].text === "") {
-      list.splice(0, 1);
+    if (note.text !== "") {
+      if (list[0].text === "") {
+        list.splice(0, 1);
+      }
+      console.log(note);
+      const newList = list.concat(note);
+      setList(newList);
+      setNote({ title: "", text: "" });
     }
-    const newList = list.concat(note);
-    setList(newList);
-    setNote({ text: "" });
   }
 
   function deleteNote(noteId) {
@@ -36,9 +42,15 @@ export function NoteCreator() {
     <div className="NoteCreator">
       <div className="NoteCreatorInput">
         <div className="noteCreatorContainer">
+          <input
+            id="title-input"
+            onChange={(e) => handleChangeTitle(e)}
+            value={note.title}
+            placeholder="Title"
+          />
           <textarea
             id="text-input"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeText(e)}
             value={note.text}
             placeholder="Your note..."
           />
