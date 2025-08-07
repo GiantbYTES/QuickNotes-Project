@@ -12,17 +12,20 @@ export function NoteCreator() {
   function handleChangeTitle(event) {
     setNote({ ...note, title: event.target.value });
   }
-  const [list, setList] = useState([note]);
-
+  const savedList = () => {
+    const stored = JSON.parse(localStorage.notesList || "[]");
+    return stored.length > 0 ? stored : [{ text: "" }];
+  };
+  const [list, setList] = useState(savedList());
   function addNote() {
     if (note.text !== "") {
       if (list[0].text === "") {
         list.splice(0, 1);
       }
-      console.log(note);
       const newList = list.concat(note);
       setList(newList);
       setNote({ title: "", text: "" });
+      localStorage.notesList = JSON.stringify(newList);
     }
   }
 
@@ -31,13 +34,14 @@ export function NoteCreator() {
       const newList = list.filter((_, id) => id !== noteId);
       if (newList.length === 0) {
         setList([{ text: "" }]);
+        localStorage.notesList = JSON.stringify([{ text: "" }]);
       } else {
         setList(newList);
+        localStorage.notesList = JSON.stringify(newList);
       }
     }
   }
 
-  //   console.log(list);
   return (
     <div className="NoteCreator">
       <div className="NoteCreatorInput">
