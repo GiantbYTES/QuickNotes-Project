@@ -2,7 +2,7 @@ import "./NotesList.css";
 import Note from "../Note/Note";
 import { useState } from "react";
 
-export function NotesList({ listOfNotes }) {
+export function NotesList({ listOfNotes, onDeleteNote }) {
   //   console.log("list" + listOfNotes);
   if (listOfNotes[0].text === "") {
     return <div className="NotesList"></div>;
@@ -10,7 +10,15 @@ export function NotesList({ listOfNotes }) {
   return (
     <div className="NotesList">
       {listOfNotes.map((n, id) => {
-        return <Note key={id} text={n.text} date={n.date} />;
+        return (
+          <Note
+            key={id}
+            text={n.text}
+            date={n.date}
+            onDelete={onDeleteNote}
+            noteId={id}
+          />
+        );
       })}
     </div>
   );

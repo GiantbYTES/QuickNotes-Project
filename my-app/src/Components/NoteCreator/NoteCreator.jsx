@@ -10,6 +10,7 @@ export function NoteCreator() {
     setNote({ ...note, text: event.target.value, date: date });
   }
   const [list, setList] = useState([note]);
+
   function addNote() {
     if (list[0].text === "") {
       list.splice(0, 1);
@@ -18,6 +19,18 @@ export function NoteCreator() {
     setList(newList);
     setNote({ text: "" });
   }
+
+  function deleteNote(noteId) {
+    if (confirm("Are you sure you want to delete your note?") === true) {
+      const newList = list.filter((_, id) => id !== noteId);
+      if (newList.length === 0) {
+        setList([{ text: "" }]);
+      } else {
+        setList(newList);
+      }
+    }
+  }
+
   //   console.log(list);
   return (
     <div className="NoteCreator">
@@ -34,7 +47,7 @@ export function NoteCreator() {
           </button>
         </div>
       </div>
-      <NotesList listOfNotes={list} />
+      <NotesList listOfNotes={list} onDeleteNote={deleteNote} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import "./Note.css";
 import { useState } from "react";
 
-export function Note({ text, date }) {
+export function Note({ text, date, onDelete, noteId }) {
   console.log(date);
   return (
     <div className="Note">
@@ -9,7 +9,9 @@ export function Note({ text, date }) {
         <div className="date">{date}</div>
         <div className="text">{text}</div>
       </div>
-      <div className="delete">X</div>
+      <div className="delete" onClick={() => onDelete(noteId)}>
+        X
+      </div>
     </div>
   );
 }
