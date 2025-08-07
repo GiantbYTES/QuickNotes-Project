@@ -1,0 +1,19 @@
+import "./NotesList.css";
+import Note from "../Note/Note";
+import { useState } from "react";
+
+export function NotesList({ listOfNotes }) {
+  //   console.log("list" + listOfNotes);
+  if (listOfNotes[0].text === "") {
+    return <div className="NotesList"></div>;
+  }
+  return (
+    <div className="NotesList">
+      {listOfNotes.map((n, id) => {
+        return <Note key={id} text={n.text} date={n.date} />;
+      })}
+    </div>
+  );
+}
+
+export default NotesList;
