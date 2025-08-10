@@ -1,10 +1,13 @@
 import "./NotesList.css";
 import Note from "../Note/Note";
-import { useState } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Modal, Button } from "@mantine/core";
 
-export function NotesList({ listOfNotes, onDeleteNote }) {
+export function NotesList({
+  listOfNotes,
+  onDeleteNote,
+  editNoteTitle,
+  editNoteText,
+  editNote,
+}) {
   //   console.log("list" + listOfNotes);
   if (listOfNotes[0].text === "") {
     return <div className="NotesList"></div>;
@@ -19,6 +22,7 @@ export function NotesList({ listOfNotes, onDeleteNote }) {
             text={n.text}
             date={n.date}
             onDelete={onDeleteNote}
+            editNote={editNote}
             noteId={id}
           />
         );

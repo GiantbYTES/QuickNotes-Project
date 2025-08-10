@@ -42,6 +42,14 @@ export function NoteCreator() {
     }
   }
 
+  function editNote(noteId, newTitle, newText) {
+    const newList = list.map((note, id) =>
+      id === noteId ? { ...note, title: newTitle || "", text: newText } : note
+    );
+    setList(newList);
+    localStorage.notesList = JSON.stringify(newList);
+  }
+
   return (
     <div className="NoteCreator">
       <div className="NoteCreatorInput">
@@ -63,7 +71,11 @@ export function NoteCreator() {
           </button>
         </div>
       </div>
-      <NotesList listOfNotes={list} onDeleteNote={deleteNote} />
+      <NotesList
+        listOfNotes={list}
+        onDeleteNote={deleteNote}
+        editNote={editNote}
+      />
     </div>
   );
 }
