@@ -4,13 +4,16 @@ import { useState } from "react";
 import moment from "moment";
 
 export function NoteCreator() {
-  const [note, setNote] = useState({ title: "", text: "" });
+  const [note, setNote] = useState({ title: "", text: "", category: "" });
   function handleChangeText(event) {
     const date = moment().format("MMM Do h:mm A");
     setNote({ ...note, text: event.target.value, date: date });
   }
   function handleChangeTitle(event) {
     setNote({ ...note, title: event.target.value });
+  }
+  function handleChangeCategory(event) {
+    setNote({ ...note, category: event.target.value });
   }
   const savedList = () => {
     const stored = JSON.parse(localStorage.notesList || "[]");
@@ -24,7 +27,7 @@ export function NoteCreator() {
       }
       const newList = list.concat(note);
       setList(newList);
-      setNote({ title: "", text: "" });
+      setNote({ title: "", text: "", category: "" });
       localStorage.notesList = JSON.stringify(newList);
     }
   }
@@ -42,9 +45,16 @@ export function NoteCreator() {
     }
   }
 
-  function editNote(noteId, newTitle, newText) {
+  function editNote(noteId, newTitle, newCategory, newText) {
     const newList = list.map((note, id) =>
-      id === noteId ? { ...note, title: newTitle || "", text: newText } : note
+      id === noteId
+        ? {
+            ...note,
+            title: newTitle || "",
+            text: newText,
+            category: newCategory || "",
+          }
+        : note
     );
     setList(newList);
     localStorage.notesList = JSON.stringify(newList);
@@ -60,6 +70,21 @@ export function NoteCreator() {
             value={note.title}
             placeholder="Title"
           />
+          <select
+            name="category"
+            id="category"
+            className="categoryInput"
+            value={note.category}
+            onChange={(e) => handleChangeCategory(e)}
+          >
+            <option value="" selected>
+              Select a Category
+            </option>
+            <option value="Personal">Personal</option>
+            <option value="Work">Work</option>
+            <option value="Study">Study</option>
+            <option value="Other">Other</option>
+          </select>
           <textarea
             id="text-input"
             onChange={(e) => handleChangeText(e)}

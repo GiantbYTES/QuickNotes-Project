@@ -60,3 +60,11 @@
 .addNoteButton:hover {
   background-color: #e0e0e0;
 }
+.categoryInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
